@@ -105,3 +105,5 @@ $(Build.ArtifactStagingDirectory)/
 Among the Control Options select when to run this task: <b><i>Only when all previous tasks have succeded</i></b>
 <img src="resources_img/9_AzurePipelines_PublishSettings.png" width="700">
 
+- [ ] OPTIONAL: we can set additional triggers to the pipeline and schedule the build. To do so, let's take a look at the <b><i>Triggers</i></b> tab!
+<img src="resources_img/10_AzurePipelines_Schedule.png" width="700"> 

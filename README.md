@@ -40,7 +40,7 @@ We're using Bash v3 task instead of v2, because the script task consistency is i
 
 You may use the following script as a basic Snyk script to scan your application:    
 
-```
+```bash session
 # Install Snyk and snyk-to-html
 npm install --location=global snyk snyk-to-html
 echo 'Snyk installed'
@@ -71,14 +71,24 @@ snyk iac test --json-file-output=iac_results.json
 RESULT_IAC=$?
 snyk-to-html -o "$(Build.ArtifactStagingDirectory)\iac_results.html" < iac_results.json
 
-if [ $RESULT_CODE -eq 1 ]; then
+# Check results:
+if [ $RESULT_CODE -eq 1 ]
+then
      exit $RESULT_CODE
-elif [ $RESULT_OS -eq 1 ]; then
+elif [ $RESULT_OS -eq 1 ]
+then
      exit $RESULT_OS
-elif [ $RESULT_IAC -eq 1 ]; then
+elif [ $RESULT_IAC -eq 1 ]
+then
      exit $RESULT_IAC
-elif [ $RESULT_CONTAINER -eq 1 ]; then
+elif [ $RESULT_CONTAINER -eq 1 ]
+then
      exit $RESULT_CONTAINER
 fi
-
 ```
+
+- [ ] Now we're ready to "upload" the generated html-files to the Artifact Staging Directory where we can download them anytime later on. Let's add the <b><i>Publish Build Artifact</i></b> to the Agent tasks.
+
+<img src="resources_img/7_AzurePipelines_AddPublishBuildArtifact.png" width="700">
+
+

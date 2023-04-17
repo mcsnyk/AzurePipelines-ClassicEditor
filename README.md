@@ -51,9 +51,9 @@ snyk auth $SNYK_TOKEN
 set +e
 
 # Test Snyk Code:
-#snyk code test --sarif-file-output=code_results.sarif
-#RESULT_CODE=$?
-#snyk-to-html -o "$(Build.ArtifactStagingDirectory)\code_results.html" < code_results.sarif
+snyk code test --sarif-file-output=code_results.sarif
+RESULT_CODE=$?
+snyk-to-html -o "$(Build.ArtifactStagingDirectory)\code_results.html" < code_results.sarif
 
 # Test Snyk Open Source:
 snyk test --all-projects --json-file-output=os_results.json

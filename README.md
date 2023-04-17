@@ -28,3 +28,57 @@ We will neither change the Agent Pool ("<i>\<inherit from pipeline></i>") nor ad
 
 <img src="resources_img/5_AzurePipelines_AgentJobConfig.png" width="700">
 
+- [ ] Let's add a [Bash v3 task](https://learn.microsoft.com/en-gb/azure/devops/pipelines/tasks/reference/bash-v3?view=azure-pipelines&viewFallbackFrom=azure-devops) to our pipeline, we'd like to install and run the [Snyk CLI](https://docs.snyk.io/snyk-cli) and the [snyk-to-html](https://docs.snyk.io/scan-application-code/snyk-code/cli-for-snyk-code/displaying-the-cli-results-in-an-html-format-using-the-snyk-to-html-feature) tool as a Bash script on our Windows agent.</br>
+
+With the latter tool we're able to display the CLI scan results in an HTML format in the Azure Devops Pipelines environment and we'll be able to download the generated html files as pipeline artifacts afterwards.</br>
+
+We're using Bash v3 task instead of v2, because the script task consistency is improved and there is added support for multiple lines and added support for Windows.</br>
+
+:hammer_and_wrench: You can find the [GNU Bash manual here](https://www.gnu.org/software/bash/manual/)</br>
+
+<img src="resources_img/6_AzurePipelines_AddTaskBash.png" width="700">
+
+You may use the following script as a basic Snyk script to scan your application:    
+
+```
+# Install Snyk and snyk-to-html
+npm install --location=global snyk snyk-to-html
+echo 'Snyk installed'
+
+# Authenticate with Snyk
+snyk auth $SNYK_TOKEN
+
+set +e
+
+# Test Snyk Code:
+#snyk code test --sarif-file-output=code_results.sarif
+#RESULT_CODE=$?
+#snyk-to-html -o "$(Build.ArtifactStagingDirectory)\code_results.html" < code_results.sarif
+
+# Test Snyk Open Source:
+snyk test --all-projects --json-file-output=os_results.json
+RESULT_OS=$?
+snyk-to-html -o "$(Build.ArtifactStagingDirectory)\os_results.html" < os_results.json
+
+# Test Snyk Container:
+# NOTE: Change the image name!
+snyk container test mcsnyk/juice-shop --file=Dockerfile --json-file-output=container_results.json
+RESULT_CONTAINER=$?
+snyk-to-html -o "$(Build.ArtifactStagingDirectory)\container_results.html" < container_results.json
+
+# Test Snyk IaC:
+snyk iac test --json-file-output=iac_results.json
+RESULT_IAC=$?
+snyk-to-html -o "$(Build.ArtifactStagingDirectory)\iac_results.html" < iac_results.json
+
+if [ $RESULT_CODE -eq 1 ]; then
+     exit $RESULT_CODE
+elif [ $RESULT_OS -eq 1 ]; then
+     exit $RESULT_OS
+elif [ $RESULT_IAC -eq 1 ]; then
+     exit $RESULT_IAC
+elif [ $RESULT_CONTAINER -eq 1 ]; then
+     exit $RESULT_CONTAINER
+fi
+
+```

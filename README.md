@@ -38,7 +38,7 @@ We're using Bash v3 task instead of v2, because the script task consistency is i
 
 <img src="resources_img/6_AzurePipelines_AddTaskBash.png" width="700">
 
-You may use the following script as a basic Snyk script to scan your application:    
+As the target script type instead of selecting the File Path, choose the <b><i>Inline option</i></b>. You may use the following script as a basic Snyk script to scan your application:    
 
 ```bash session
 # Install Snyk and snyk-to-html

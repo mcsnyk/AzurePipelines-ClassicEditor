@@ -38,7 +38,7 @@ We're using Bash v3 task instead of v2, because the script task consistency is i
 
 <img src="resources_img/6_AzurePipelines_AddTaskBash.png" width="700">
 
-As the target script type instead of selecting the File Path, choose the <b><i>Inline option</i></b>. You may use the following script as a basic Snyk script to scan your application:    
+As the target script type instead of selecting the File Path, choose the <b><i>Inline</i></b> option. You may use the following script as a basic Snyk script to scan your application:    
 
 ```bash session
 # Install Snyk and snyk-to-html
@@ -87,8 +87,21 @@ then
 fi
 ```
 
+- [ ] Before we move on, we have to add an environment variable to the task: <b>SNYK_TOKEN</b>
+
+<img src="resources_img/8_AzurePipelines_EnvVar.png" width="700">
+
 - [ ] Now we're ready to "upload" the generated html-files to the Artifact Staging Directory where we can download them anytime later on. Let's add the <b><i>Publish Build Artifact</i></b> to the Agent tasks.
 
 <img src="resources_img/7_AzurePipelines_AddPublishBuildArtifact.png" width="700">
 
+- [ ] We can give a <b><i>display name</i></b>, a <b><i>path to publish</i></b> (the folder or file path to publish. This can be a fully-qualified path or a path relative to the root of the repository) and an <b><i>artifact name</i></b> (the name of the artifact to create in the publish location). 
+
+As a <b><i>path to publish</i></b> enter:
+```js
+$(Build.ArtifactStagingDirectory)/
+```
+
+Among the Control Options select when to run this task: <b><i>Only when all previous tasks have succeded</i></b>
+<img src="resources_img/9_AzurePipelines_PublishSettings.png" width="700">
 

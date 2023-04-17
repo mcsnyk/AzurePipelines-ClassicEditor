@@ -108,4 +108,5 @@ Among the Control Options select when to run this task: <b><i>Only when all prev
 - [ ] OPTIONAL: we can set additional triggers to the pipeline and schedule the build. To do so, let's take a look at the <b><i>Triggers</i></b> tab!
 <img src="resources_img/10_AzurePipelines_Schedule.png" width="700"> 
 
-Once a build finishes, you can download the generated artifacts 
+- [ ] Once a build finishes, you can download the generated artifacts from the site of the build run:
+<img src="resources_img/11_AzurePipelines_Artifacts.png" width="700"> 

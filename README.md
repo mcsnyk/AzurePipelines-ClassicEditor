@@ -102,10 +102,10 @@ As a <b><i>path to publish</i></b> enter:
 $(Build.ArtifactStagingDirectory)/
 ```
 
-Among the Control Options select when to run this task: <b><i>Only when all previous tasks have succeded</i></b>
+Among the Control Options select when to run this task: <b><i>Only when all previous tasks have succeded</i></b>. 
 <img src="resources_img/9_AzurePipelines_PublishSettings.png" width="700">
 
-- [ ] OPTIONAL: we can set additional triggers to the pipeline and schedule the build. To do so, let's take a look at the <b><i>Triggers</i></b> tab!
+- [ ] OPTIONAL: we can set additional triggers to the pipeline and schedule the build. To do so, let's take a look at the <b><i>Triggers</i></b> tab! Once we're ready with settings up the pipeline, we can <b><i>Save</i></b> or <b><i>Save & queue</i></b> the pipeline.  
 <img src="resources_img/10_AzurePipelines_Schedule.png" width="700"> 
 
 - [ ] Once a build finishes, you can download the generated artifacts from the site of the build run:
